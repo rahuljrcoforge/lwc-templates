@@ -1,0 +1,38 @@
+<template>
+   
+    <lightning-layout pull-to-boundary="small">
+        <lightning-layout-item flexibility="auto" padding="horizontal-small">
+            <lightning-card title="Create Contact">
+                <lightning-record-edit-form object-api-name="Contact" onsuccess={handleSaveSuccess}>           
+                        <lightning-input-field field-name="FirstName"> </lightning-input-field>
+                        <lightning-input-field field-name="LastName"> </lightning-input-field>
+                        <lightning-input-field field-name="Email"> </lightning-input-field>
+                        <lightning-input-field field-name="MobilePhone"> </lightning-input-field>
+                        <div class="slds-var-m-top_medium slds-var-m-left_medium">
+                            <lightning-button variant="brand" type="submit" label="Save">
+                            </lightning-button>
+                        </div>
+                </lightning-record-edit-form>
+            </lightning-card>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="horizontal-small">
+            <lightning-card title="Contact List">
+                <div class="slds-var-m-left_small slds-var-m-right_large">
+                    <lightning-input type="search" label="Search" onchange={handleSearch}> </lightning-input>
+                </div>
+                <template for:each={contacts} for:item="ct">
+                    <lightning-card  variant="Narrow" key={ct.Id}  title={ct.Name.value} icon-name="standard:contact">
+                        <p class="slds-p-horizontal_small"><a href={ct.link} target="_blank">{ct.Name.value}</a></p>
+                        <p class="slds-p-horizontal_small">{ct.MobilePhone.value}</p>
+                        <p class="slds-p-horizontal_small">{ct.Email.value}</p>
+                    </lightning-card>
+                </template>
+            </lightning-card>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="horizontal-small">
+            <lightning-card title="Contact Pagination (Ony Forward Pagination Supported)">
+                <c-graph-q-l-pagination-custom></c-graph-q-l-pagination-custom>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
